@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="training.mapper.ContatoMapper">
+
+    <resultMap id="contatoResult" type="training.model.Contato">
+        <id property="idContato" column="id_contato" />
+        <result property="nome" column="nome" />
+        <result property="telefone" column="telefone" />
+        <result property="email" column="email" />
+        <result property="servicoSelecionado" column="servico_selecionado" />
+        <result property="termosCondicoes" column="termos_condicoes" />
+        <result property="automacaoDetalhes" column="automacao_detalhes" />
+    </resultMap>
+
+    <select id="listaTodos" resultMap="contatoResult">
+        SELECT * FROM contato
+    </select>
+
+    <select id="buscaPorId" resultMap="contatoResult">
+        SELECT * FROM contato WHERE id_contato = #{idContato}
+    </select>
+
+    <insert id="insere" parameterType="training.model.Contato">
+        INSERT INTO contato (nome, telefone, email, servico_selecionado, termos_condicoes, automacao_detalhes)
+        VALUES (#{nome}, #{telefone}, #{email}, #{servicoSelecionado}, #{termosCondicoes}, #{automacaoDetalhes})
+    </insert>
+
+
+
+    <update id="atualiza" parameterType="training.model.Contato">
+        UPDATE contato
+        SET
+            nome = #{nome},
+            telefone = #{telefone},
+            email = #{email},
+            servico_selecionado = #{servicoSelecionado},
+            termos_condicoes = #{termosCondicoes},
+            automacao_detalhes = #{automacaoDetalhes}
+        WHERE id_contato = #{idContato}
+    </update>
+
+    <delete id="remove" parameterType="long">
+        DELETE FROM contato WHERE id_contato = #{idContato}
+    </delete>
+
+</mapper>
